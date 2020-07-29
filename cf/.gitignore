@@ -1,0 +1,6 @@
+*.o
+*.bin
+.makedepend
+.makedepend.bak
+*~
+.*~
