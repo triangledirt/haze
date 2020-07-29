@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+cd
+
+ln -sf ~/bin/.bash_logout
+ln -sf ~/bin/.bash_profile
+ln -sf ~/bin/.bashrc
+ln -sf ~/bin/.bashrc_0_aliases
+ln -sf ~/bin/.bashrc_0_editor
+ln -sf ~/bin/.bashrc_0_path
+ln -sf ~/bin/.bashrc_0_prompt
+ln -sf ~/bin/.emacs
+ln -sf ~/bin/.gitconfig
+ln -sf ~/bin/.screenrc
+ln -sf ~/bin/.vimrc
+
+cd - >/dev/null

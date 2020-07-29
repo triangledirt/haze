@@ -1,0 +1,1589 @@
+<pre>
+// Copyright 2005 Inhaesio Zha.  All Rights Reserved.
+
+
+#include "network.H"
+#include "../core/core.H"
+
+
+namespace z {
+  namespace animals {
+
+
+    network::network() {}
+
+
+    network::~network() {
+      // go through _nodes and delete the list
+    }
+
+
+    void network::addNode(animalDescriptor animalDescriptor_,
+			  vector&lt;unsigned int&gt; parameterList_,
+			  unsigned int initialValue_) {
+      _nodes.insert(_nodes.end(), new node(animalDescriptor_, initialValue_));
+      _nodeParams.insert(_nodeParams.end(), parameterList_);
+    }
+
+
+    void network::createHtmlSummary(unsigned int steps_,
+				    string filenamePrefix_) {
+      ostringstream filename("");
+      filename &lt;&lt; filenamePrefix_ &lt;&lt; ".html";
+
+      ostringstream f("");
+
+      f &lt;&lt; "&lt;html&gt;";
+      f &lt;&lt; "&lt;head&gt;";
+      f &lt;&lt; "&lt;style type='text/css'&gt;";
+      f &lt;&lt; "  td {";
+      f &lt;&lt; "    font-family: sans-serif;";
+      f &lt;&lt; "    font-size: 8pt;";
+      f &lt;&lt; "    vertical-align: top;";
+      f &lt;&lt; "  }";
+      f &lt;&lt; "&lt;/style&gt;";
+      f &lt;&lt; "&lt;/head&gt;";
+
+      f &lt;&lt; "&lt;body&gt;";
+
+      f &lt;&lt; "&lt;table cellspacing='16'&gt;&lt;tr&gt;";
+
+      f &lt;&lt; "&lt;td&gt;";
+      //f &lt;&lt; "&lt;table border='0' cellpadding='0' cellspacing='0'&gt;";
+      for (unsigned int j = 0; j &lt; steps_; j++) {
+	//f &lt;&lt; "&lt;tr&gt;";
+	vector&lt;node*&gt;::iterator it;
+	for (it = _nodes.begin(); it != _nodes.end(); it++) {
+	  //f &lt;&lt; "&lt;td&gt;";
+	  if ((*it)-&gt;getValue() == 1) {
+	    f &lt;&lt; "&lt;img src='black.gif'&gt;";
+	  } else {
+	    f &lt;&lt; "&lt;img src='white.gif'&gt;";
+	  }
+	  //f &lt;&lt; "&lt;/td&gt;";
+	}
+	//f &lt;&lt; "&lt;/tr&gt;";
+	f &lt;&lt; "&lt;br&gt;";
+
+	iterate();
+      }
+      //f &lt;&lt; "&lt;/table&gt;";
+      f &lt;&lt; "&lt;/td&gt;";
+
+      if (true) {
+      // node and network description
+      f &lt;&lt; "&lt;td&gt;";
+      f &lt;&lt; "&lt;table&gt;";
+      unsigned int nodeIndex;
+      unsigned int nodeCount(_nodes.size());
+      f &lt;&lt; "&lt;tr&gt;";
+      f &lt;&lt; "&lt;td&gt;&lt;b&gt;node&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;animal&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;parameters&lt;/b&gt;"
+	&lt;&lt; "&lt;/td&gt;";
+      f &lt;&lt; "&lt;/tr&gt;";
+      for (nodeIndex = 0; nodeIndex &lt; nodeCount; nodeIndex++) {
+	animalDescriptor aniDesc(_nodes[nodeIndex]-&gt;getAnimalDescriptor());
+	unsigned int order(aniDesc.order);
+	unsigned int name(aniDesc.name);
+	f &lt;&lt; "&lt;tr&gt;";
+	f &lt;&lt; "&lt;td&gt;" &lt;&lt; nodeIndex &lt;&lt; "&lt;/td&gt;"
+	  &lt;&lt; "&lt;td&gt;" &lt;&lt; order &lt;&lt; ", " &lt;&lt; name &lt;&lt; "&lt;/td&gt;"
+	  &lt;&lt; "&lt;td&gt;";
+	vector&lt;unsigned int&gt;::iterator it7;
+	ostringstream s("");
+	for (it7 = _nodeParams[nodeIndex].begin();
+	     it7 != _nodeParams[nodeIndex].end(); it7++) {
+	  s &lt;&lt; *it7 &lt;&lt; ", ";
+	}
+	f &lt;&lt; s.str().substr(0, s.str().length() - 2);
+	f &lt;&lt; "&lt;/td&gt;";
+	f &lt;&lt; "&lt;/tr&gt;";
+      }
+      f &lt;&lt; "&lt;/table&gt;";
+      //if (doesNotRepeat()) {
+      //f &lt;&lt; "this network does not repeat&lt;br&gt;";
+      //} else {
+      //f &lt;&lt; "this network repeats&lt;br&gt;";
+      //}
+      f &lt;&lt; "&lt;/td&gt;";
+      }
+
+      f &lt;&lt; "&lt;/tr&gt;&lt;/table&gt;";
+
+      f &lt;&lt; "&lt;/body&gt;";
+      f &lt;&lt; "&lt;/html&gt;";
+
+      if (doesNotRepeatMuch()) {
+	cout &lt;&lt; "^^^^" &lt;&lt; endl;
+	ofstream file(filename.str().c_str());
+	file &lt;&lt; f.str();
+	file.close();
+      }
+    }
+
+
+    void network::initCrackHausCA(unsigned int rule1Number_,
+				  unsigned int rule2Number_,
+				  unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	unsigned int rule;
+	if ((j % 2) == 0) {
+	  rule = rule1Number_;
+	} else {
+	  rule = rule2Number_;
+	}
+
+	int a(j - 1);
+	int b(j);
+	int c(j + 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	addNode(animalDescriptor(3, rule), nx, value);
+      }
+    }
+
+
+    void network::initCrackHaus3CA(unsigned int rule1Number_,
+				   unsigned int rule2Number_,
+				   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	unsigned int rule;
+	if ((j % 3) == 0) {
+	  rule = rule1Number_;
+	} else {
+	  rule = rule2Number_;
+	}
+
+	int a(j - 1);
+	int b(j);
+	int c(j + 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	addNode(animalDescriptor(3, rule), nx, value);
+      }
+    }
+
+
+    void network::initCrackHausRainbowCA(unsigned int rule1Number_,
+					 unsigned int rule2Number_,
+					 unsigned int rule3Number_,
+					 unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	unsigned int rule;
+	if ((j % 3) == 0) {
+	  rule = rule1Number_;
+	} else if ((j % 3) == 1) {
+	  rule = rule2Number_;
+	} else {
+	  rule = rule3Number_;
+	}
+
+	int a(j - 1);
+	int b(j + 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+
+	addNode(animalDescriptor(2, rule), nx, value);
+      }
+    }
+
+
+    void network::initCrackHausRainbowXCA(unsigned int rule1Number_,
+					  unsigned int rule2Number_,
+					  unsigned int rule3Number_,
+					  unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	unsigned int rule;
+	if ((j % 3) == 0) {
+	  rule = rule1Number_;
+	} else if ((j % 3) == 1) {
+	  rule = rule2Number_;
+	} else {
+	  rule = rule3Number_;
+	}
+
+	int a(j);
+	int b(j + 1);
+	//if (a &lt; 0) {
+	//  a = width_ + a;
+	//}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+
+	addNode(animalDescriptor(2, rule), nx, value);
+      }
+    }
+
+
+    void network::initCrazyCow3CA(unsigned int ruleNumber_,
+				  unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int b(rand() % width_);
+	int a(b - 1);
+	int c(b + 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	addNode(animalDescriptor(3, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyDuck4CA(unsigned int ruleNumber_,
+				   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int a(j - 2);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (a &gt; (((int) width_) - 1)) {
+	  a = (a - width_);
+	}
+
+	int b(j - 1);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + 1);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j + 2);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+
+	addNode(animalDescriptor(4, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyFish4CA(unsigned int ruleNumber_,
+				   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int a(j - 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (a &gt; (((int) width_) - 1)) {
+	  a = (a - width_);
+	}
+
+	int b(j);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + 1);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j + 11);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+
+	addNode(animalDescriptor(4, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyFrog4CA(unsigned int ruleNumber_,
+				   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int a(j - 7);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (a &gt; (((int) width_) - 1)) {
+	  a = (a - width_);
+	}
+
+	int b(j);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + 4);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j + 11);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+
+	addNode(animalDescriptor(4, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyGoose9CA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int a(j - 4);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (a &gt; (((int) width_) - 1)) {
+	  a = (a - width_);
+	}
+
+	int b(j - 3);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j - 2);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j - 1);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j + 1);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	int g(j + 2);
+	if (g &lt; 0) {
+	  g = width_ + g;
+	}
+	if (g &gt; (((int) width_) - 1)) {
+	  g = (g - width_);
+	}
+
+	int h(j + 3);
+	if (h &lt; 0) {
+	  h = width_ + h;
+	}
+	if (h &gt; (((int) width_) - 1)) {
+	  h = (h - width_);
+	}
+
+	int i(j + 4);
+	if (i &lt; 0) {
+	  i = width_ + i;
+	}
+	if (i &gt; (((int) width_) - 1)) {
+	  i = (i - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+	nx.insert(nx.end(), g);
+	nx.insert(nx.end(), h);
+	nx.insert(nx.end(), i);
+
+	addNode(animalDescriptor(9, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyGoose7CA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int b(j - 3);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j - 2);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j - 1);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j + 1);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	int g(j + 2);
+	if (g &lt; 0) {
+	  g = width_ + g;
+	}
+	if (g &gt; (((int) width_) - 1)) {
+	  g = (g - width_);
+	}
+
+	int h(j + 3);
+	if (h &lt; 0) {
+	  h = width_ + h;
+	}
+	if (h &gt; (((int) width_) - 1)) {
+	  h = (h - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+	nx.insert(nx.end(), g);
+	nx.insert(nx.end(), h);
+
+	addNode(animalDescriptor(7, ruleNumber_), nx, value);
+	//addNode(animalDescriptor(7, rand() % 1638400), nx, value);
+      }
+    }
+
+
+    void network::initMonkey5CA(unsigned int ruleNumber_,
+				unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+      unsigned int value(0);
+
+      int rinit(rand() % ruleNumber_);
+
+      int qq(2);
+      int pp((qq * 2) + 1);
+
+      int bx((rand() % pp) - qq);
+      int cx((rand() % pp) - qq);
+      int dx((rand() % pp) - qq);
+      int ex((rand() % pp) - qq);
+      int fx((rand() % pp) - qq);
+
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int b(j + bx);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + cx);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j + dx);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j + ex);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j + fx);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+
+	addNode(animalDescriptor(5, rinit + ((rand() % 3) - 1)), nx, value);
+      }
+    }
+
+
+    void network::initRedMonkey5CA(unsigned int ruleNumber_,
+				   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+      unsigned int value(0);
+
+      int rinit(rand() % ruleNumber_);
+
+      int qq(5);
+      int pp((qq * 2) + 1);
+
+      int bx((rand() % pp) - qq);
+      int cx((rand() % pp) - qq);
+      int dx((rand() % pp) - qq);
+      int ex((rand() % pp) - qq);
+      int fx((rand() % pp) - qq);
+
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int b(j + bx);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + cx);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j + dx);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j + ex);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j + fx);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+
+	addNode(animalDescriptor(5, rinit + ((rand() % 3) - 1)), nx, value);
+      }
+    }
+
+
+    void network::initXcCA(unsigned int ruleNumber_,
+			   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+      unsigned int value(0);
+
+      unsigned int wd(3);
+
+      int bx(rand() % wd);
+      int cx(rand() % wd);
+      int ex(rand() % wd);
+      int fx(rand() % wd);
+
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int b(j + bx);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + cx);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j - ex);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j - fx);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+
+	addNode(animalDescriptor(5, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initXdCA(unsigned int ruleNumber_,
+			   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+      unsigned int value(0);
+
+      unsigned int wd(4);
+
+      int bx(rand() % wd);
+      int cx(rand() % wd);
+      int ex(rand() % wd);
+      int fx(rand() % wd);
+
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int b(j + bx);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + cx);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j - ex);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j - fx);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+
+	addNode(animalDescriptor(5, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initXeCA(unsigned int ruleNumber_,
+			   unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+      unsigned int value(0);
+
+      unsigned int wd(5);
+
+      int bx(rand() % wd);
+      int cx(rand() % wd);
+      int ex(rand() % wd);
+      int fx(rand() % wd);
+
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int b(j + bx);
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	int c(j + cx);
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	int d(j);
+	if (d &lt; 0) {
+	  d = width_ + d;
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+
+	int e(j - ex);
+	if (e &lt; 0) {
+	  e = width_ + e;
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	int f(j - fx);
+	if (f &lt; 0) {
+	  f = width_ + f;
+	}
+	if (f &gt; (((int) width_) - 1)) {
+	  f = (f - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+	nx.insert(nx.end(), f);
+
+	addNode(animalDescriptor(5, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyHorse2CA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	unsigned int a(rand() % width_);
+	unsigned int b(rand() % width_);
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+
+	addNode(animalDescriptor(2, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyHorse3CA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	unsigned int a(rand() % width_);
+	unsigned int b(rand() % width_);
+	unsigned int c(rand() % width_);
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	//unsigned int randomRule((rand() % 4) + 24);
+	//unsigned int randomRule((rand() % 4) + 24);
+	addNode(animalDescriptor(3, ruleNumber_), nx, value);
+	//addNode(animalDescriptor(3, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initCrazyHorse5CA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	unsigned int a(rand() % width_);
+	unsigned int b(rand() % width_);
+	unsigned int c(rand() % width_);
+	unsigned int d(rand() % width_);
+	unsigned int e(rand() % width_);
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	addNode(animalDescriptor(5, ruleNumber_), nx, value);
+      }
+    }
+
+
+    void network::initCrazyIguana3CA(unsigned int ruleMod_,
+				     unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+
+	int a(j - 3);
+	int b(j - 2);
+	int c(j - 1);
+
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (a &gt; (((int) width_) - 1)) {
+	  a = (a - width_);
+	}
+
+	if (b &lt; 0) {
+	  b = width_ + b;
+	}
+	if (b &gt; (((int) width_) - 1)) {
+	  b = (b - width_);
+	}
+
+	if (c &lt; 0) {
+	  c = width_ + c;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	addNode(animalDescriptor(3, ruleMod_), nx, value);
+      }
+    }
+
+
+    bool network::doesNotRepeat() {
+      bool r(false);
+
+      // convert history to list of integers
+      list&lt;unsigned int&gt; intList;
+      vector&lt; vector&lt;unsigned int&gt; &gt;::iterator it;
+      for (it = _networkHistory.begin(); it != _networkHistory.end(); it++) {
+	unsigned int decimal;
+	decimal = core::BinaryToDecimal(*it);
+	intList.insert(intList.end(), decimal);
+      }
+
+      // unique-ify the list of integers
+      intList.sort();
+      intList.unique();
+
+      // compare the size of the unique int list with the size of the history
+      if (intList.size() == _networkHistory.size()) {
+	r = true;
+      }
+
+      return r;
+    }
+
+
+    bool network::doesNotRepeatMuch() {
+      bool r(false);
+
+      // convert history to list of integers
+      list&lt;unsigned int&gt; intList;
+      vector&lt; vector&lt;unsigned int&gt; &gt;::iterator it;
+      for (it = _networkHistory.begin(); it != _networkHistory.end(); it++) {
+	unsigned int decimal;
+	decimal = core::BinaryToDecimal(*it);
+	intList.insert(intList.end(), decimal);
+      }
+
+      // unique-ify the list of integers
+      intList.sort();
+      intList.unique();
+
+      // compare the size of the unique int list with the size of the history
+      int diff(_networkHistory.size() - intList.size());
+      if (diff &lt; ((int) _networkHistory.size() / 10)) {
+	r = true;
+      }
+
+      return r;
+    }
+
+
+    void network::initWackyA5CA(unsigned int width_) {
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 3);
+	int b(((int) j) - 2);
+	int c((int) j);
+	int d(((int) j) + 2);
+	int e(((int) j) + 3);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule((rand() % 400) + 6000);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyA5xibCA(unsigned int width_) {
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 5);
+	int b(((int) j) - 3);
+	int c((int) j);
+	int d(((int) j) + 3);
+	int e(((int) j) + 5);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule((rand() % 4000) + 6000);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyA5xicCA(unsigned int width_) {
+      unsigned int value(0);
+      unsigned int offset(rand() % 7000);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 2);
+	int b(((int) j) - 1);
+	int c((int) j - 4);
+	int d(((int) j) + 1);
+	int e(((int) j) + 2);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (c &lt; 0) {
+	  c = (width_ + c);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule((rand() % 3) + offset);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyA5xidCA(unsigned int width_) {
+      unsigned int value(0);
+      unsigned int offset(rand() % 64842);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 2);
+	int b(((int) j) - 1);
+	int c((int) j - 5);
+	int d(((int) j) + 1);
+	int e(((int) j) + 2);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (c &lt; 0) {
+	  c = (width_ + c);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule((rand() % 2) + offset);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyB5CA(unsigned int width_) {
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 3);
+	int b(((int) j) - 2);
+	int c((int) j);
+	int d(((int) j) + 2);
+	int e(((int) j) + 3);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule(rand() % 32768);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyC5CA(unsigned int width_) {
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 2);
+	int b(((int) j) - 1);
+	int c((int) j);
+	int d(((int) j) + 1);
+	int e(((int) j) + 2);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	unsigned int randomRule(rand() % 32768);
+	addNode(animalDescriptor(5, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWackyC3CA(unsigned int width_) {
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	value = rand() % 2;
+
+	int a(((int) j) - 1);
+	int b((int) j);
+	int c(((int) j) + 1);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (c &gt; (((int) width_) - 1)) {
+	  c = (c - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	unsigned int randomRule(rand() % 32768);
+	addNode(animalDescriptor(3, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWideWolframCA(unsigned int ruleNumber_,
+				    unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	int a(((int) j) - 2);
+	int b(((int) j) - 1);
+	int c((int) j);
+	int d(((int) j) + 1);
+	int e(((int) j) + 2);
+	if (a &lt; 0) {
+	  a = width_ + a;
+	}
+	if (b &lt; 0) {
+	  b = (width_ + b);
+	}
+	if (d &gt; (((int) width_) - 1)) {
+	  d = (d - width_);
+	}
+	if (e &gt; (((int) width_) - 1)) {
+	  e = (e - width_);
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+	nx.insert(nx.end(), d);
+	nx.insert(nx.end(), e);
+
+	//unsigned int randomRule((rand() % 4) + 24);
+	addNode(animalDescriptor(5, ruleNumber_), nx, value);
+	//addNode(animalDescriptor(3, randomRule), nx, value);
+      }
+    }
+
+
+    void network::initWolframCA(unsigned int ruleNumber_,
+				unsigned int width_) {
+      unsigned int centerCell((unsigned int) width_ / 2);
+
+      unsigned int value(0);
+      for (unsigned int j = 0; j &lt; width_; j++) {
+	if (j == centerCell) {
+	  value = 1;
+	} else {
+	  value = 0;
+	}
+	//value = rand() % 2;
+
+	unsigned int a;
+	unsigned int b;
+	unsigned int c;
+	if (0 == j) {
+	  a = width_ - 1;
+	  b = 0;
+	  c = 1;
+	} else if ((width_ - 1) == j) {
+	  a = width_ - 2;
+	  b = width_ - 1;
+	  c = 0;
+	} else {
+	  a = j - 1;
+	  b = j;
+	  c = j + 1;
+	}
+
+	vector&lt;unsigned int&gt; nx;
+	nx.insert(nx.end(), a);
+	nx.insert(nx.end(), b);
+	nx.insert(nx.end(), c);
+
+	//unsigned int randomRule((rand() % 4) + 24);
+	//unsigned int randomRule((rand() % 4) + 24);
+	addNode(animalDescriptor(3, ruleNumber_), nx, value);
+	//addNode(animalDescriptor(3, randomRule), nx, value);
+      }
+    }
+
+
+    void network::iterate() {
+      // save network state for historical review
+      vector&lt;node*&gt;::iterator it2;
+      vector&lt;unsigned int&gt; currentState;
+      for (it2 = _nodes.begin(); it2 != _nodes.end(); it2++) {
+	currentState.insert(currentState.end(), (*it2)-&gt;getValue());
+      }
+      _networkHistory.insert(_networkHistory.end(), currentState);
+
+      // generate new network state
+      vector&lt;unsigned int&gt; newNodeValues;
+      unsigned int nodeCount(_nodes.size());
+
+      for (unsigned int j = 0; j &lt; nodeCount; j++) {
+	vector&lt;unsigned int&gt; thisParamValueList;
+	vector&lt;unsigned int&gt;::iterator it;
+	for (it = _nodeParams[j].begin(); it != _nodeParams[j].end(); it++) {
+	  unsigned int thisNodeValue;
+	  thisNodeValue = _nodes[*it]-&gt;getValue();
+	  thisParamValueList.insert(thisParamValueList.end(), thisNodeValue);
+	}
+	newNodeValues.insert(newNodeValues.end(),
+			     _nodes[j]-&gt;getNextValue(thisParamValueList));
+      }
+
+      for (unsigned int j = 0; j &lt; nodeCount; j++) {
+	_nodes[j]-&gt;setValue(newNodeValues[j]);
+      }
+    }
+
+
+  }
+}
+</pre>

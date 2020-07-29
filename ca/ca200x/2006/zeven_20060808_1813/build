@@ -1,0 +1,8 @@
+#!/bin/sh
+
+rm -f *.o
+rm -f zeven
+g++ -c core.C
+g++ -c animal.C
+g++ -c animalDescriptor.C
+g++ -o zeven zeven.C -I/usr/local/include -I/Developer/SDKs/MacOSX10.3.9.sdk/usr/X11R6/include/freetype2 -I/opt/local/include -L/usr/local/lib -L/opt/local/lib -lpng -lpngwriter -lfreetype

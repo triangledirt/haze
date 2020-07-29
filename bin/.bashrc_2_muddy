@@ -1,0 +1,2 @@
+export XT=/home/matthew/xt
+export PATH=$PATH:$XT/bin

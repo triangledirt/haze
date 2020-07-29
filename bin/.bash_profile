@@ -1,0 +1,2 @@
+. ~/.bashrc
+screen -list

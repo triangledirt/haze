@@ -1,0 +1,377 @@
+
+# DO NOT DELETE
+
+./nameobject.o: /home/matthew/xt/core/nameobject.h
+./nameobject.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./nameobject.o: /home/matthew/xt/core/declarations.h
+./nameobject.o: /home/matthew/xt/core/iobject.h
+./nameobject.o: /home/matthew/xt/core/string.h /home/matthew/xt/core/tools.h
+./nameobject.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/standard.h
+./nameobject.o: /usr/include/arpa/inet.h /usr/include/features.h
+./nameobject.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./nameobject.o: /usr/include/endian.h /usr/include/assert.h
+./nameobject.o: /usr/include/ctype.h /usr/include/dirent.h
+./nameobject.o: /usr/include/fcntl.h /usr/include/math.h
+./nameobject.o: /usr/include/pthread.h /usr/include/sched.h
+./nameobject.o: /usr/include/time.h /usr/include/signal.h
+./nameobject.o: /usr/include/stdio.h /usr/include/stdlib.h
+./nameobject.o: /usr/include/alloca.h /usr/include/string.h
+./nameobject.o: /usr/include/strings.h /usr/include/termios.h
+./nameobject.o: /usr/include/unistd.h
+./object.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./object.o: /home/matthew/xt/core/declarations.h
+./object.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./object.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./object.o: /usr/include/features.h /usr/include/stdc-predef.h
+./object.o: /usr/include/netinet/in.h /usr/include/endian.h
+./object.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./object.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./object.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./object.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./object.o: /usr/include/string.h /usr/include/strings.h
+./object.o: /usr/include/termios.h /usr/include/unistd.h
+./log.o: /home/matthew/xt/core/log.h /home/matthew/xt/core/bool.h
+./log.o: /home/matthew/xt/core/declarations.h /home/matthew/xt/core/tools.h
+./log.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/object.h
+./log.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./log.o: /usr/include/features.h /usr/include/stdc-predef.h
+./log.o: /usr/include/netinet/in.h /usr/include/endian.h
+./log.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./log.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./log.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./log.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./log.o: /usr/include/string.h /usr/include/strings.h /usr/include/termios.h
+./log.o: /usr/include/unistd.h /home/matthew/xt/case/set.h
+./log.o: /home/matthew/xt/case/list.h /home/matthew/xt/case/declarations.h
+./log.o: /home/matthew/xt/core/iobject.h /home/matthew/xt/core/message.h
+./log.o: /home/matthew/xt/core/engine.h
+./log.o: /home/matthew/xt/core/basic/unsigned_long.h
+./basic/unsigned_short.o: /home/matthew/xt/core/basic/unsigned_short.h
+./basic/unsigned_short.o: /home/matthew/xt/core/object.h
+./basic/unsigned_short.o: /home/matthew/xt/core/bool.h
+./basic/unsigned_short.o: /home/matthew/xt/core/declarations.h
+./basic/unsigned_short.o: /home/matthew/xt/core/tools.h
+./basic/unsigned_short.o: /home/matthew/xt/core/bit.h
+./basic/unsigned_short.o: /home/matthew/xt/core/standard.h
+./basic/unsigned_short.o: /usr/include/arpa/inet.h /usr/include/features.h
+./basic/unsigned_short.o: /usr/include/stdc-predef.h
+./basic/unsigned_short.o: /usr/include/netinet/in.h /usr/include/endian.h
+./basic/unsigned_short.o: /usr/include/assert.h /usr/include/ctype.h
+./basic/unsigned_short.o: /usr/include/dirent.h /usr/include/fcntl.h
+./basic/unsigned_short.o: /usr/include/math.h /usr/include/pthread.h
+./basic/unsigned_short.o: /usr/include/sched.h /usr/include/time.h
+./basic/unsigned_short.o: /usr/include/signal.h /usr/include/stdio.h
+./basic/unsigned_short.o: /usr/include/stdlib.h /usr/include/alloca.h
+./basic/unsigned_short.o: /usr/include/string.h /usr/include/strings.h
+./basic/unsigned_short.o: /usr/include/termios.h /usr/include/unistd.h
+./basic/void.o: /home/matthew/xt/core/basic/void.h
+./basic/void.o: /home/matthew/xt/core/iobject.h
+./basic/void.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./basic/void.o: /home/matthew/xt/core/declarations.h
+./basic/void.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./basic/void.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./basic/void.o: /usr/include/features.h /usr/include/stdc-predef.h
+./basic/void.o: /usr/include/netinet/in.h /usr/include/endian.h
+./basic/void.o: /usr/include/assert.h /usr/include/ctype.h
+./basic/void.o: /usr/include/dirent.h /usr/include/fcntl.h
+./basic/void.o: /usr/include/math.h /usr/include/pthread.h
+./basic/void.o: /usr/include/sched.h /usr/include/time.h
+./basic/void.o: /usr/include/signal.h /usr/include/stdio.h
+./basic/void.o: /usr/include/stdlib.h /usr/include/alloca.h
+./basic/void.o: /usr/include/string.h /usr/include/strings.h
+./basic/void.o: /usr/include/termios.h /usr/include/unistd.h
+./basic/int.o: /home/matthew/xt/core/basic/int.h
+./basic/int.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./basic/int.o: /home/matthew/xt/core/declarations.h
+./basic/int.o: /home/matthew/xt/core/iobject.h /home/matthew/xt/core/tools.h
+./basic/int.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/standard.h
+./basic/int.o: /usr/include/arpa/inet.h /usr/include/features.h
+./basic/int.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./basic/int.o: /usr/include/endian.h /usr/include/assert.h
+./basic/int.o: /usr/include/ctype.h /usr/include/dirent.h
+./basic/int.o: /usr/include/fcntl.h /usr/include/math.h
+./basic/int.o: /usr/include/pthread.h /usr/include/sched.h
+./basic/int.o: /usr/include/time.h /usr/include/signal.h /usr/include/stdio.h
+./basic/int.o: /usr/include/stdlib.h /usr/include/alloca.h
+./basic/int.o: /usr/include/string.h /usr/include/strings.h
+./basic/int.o: /usr/include/termios.h /usr/include/unistd.h
+./basic/unsigned_long.o: /home/matthew/xt/core/basic/unsigned_long.h
+./basic/unsigned_long.o: /home/matthew/xt/core/iobject.h
+./basic/unsigned_long.o: /home/matthew/xt/core/object.h
+./basic/unsigned_long.o: /home/matthew/xt/core/bool.h
+./basic/unsigned_long.o: /home/matthew/xt/core/declarations.h
+./basic/unsigned_long.o: /home/matthew/xt/core/tools.h
+./basic/unsigned_long.o: /home/matthew/xt/core/bit.h
+./basic/unsigned_long.o: /home/matthew/xt/core/standard.h
+./basic/unsigned_long.o: /usr/include/arpa/inet.h /usr/include/features.h
+./basic/unsigned_long.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./basic/unsigned_long.o: /usr/include/endian.h /usr/include/assert.h
+./basic/unsigned_long.o: /usr/include/ctype.h /usr/include/dirent.h
+./basic/unsigned_long.o: /usr/include/fcntl.h /usr/include/math.h
+./basic/unsigned_long.o: /usr/include/pthread.h /usr/include/sched.h
+./basic/unsigned_long.o: /usr/include/time.h /usr/include/signal.h
+./basic/unsigned_long.o: /usr/include/stdio.h /usr/include/stdlib.h
+./basic/unsigned_long.o: /usr/include/alloca.h /usr/include/string.h
+./basic/unsigned_long.o: /usr/include/strings.h /usr/include/termios.h
+./basic/unsigned_long.o: /usr/include/unistd.h
+./basic/double.o: /home/matthew/xt/core/basic/double.h
+./basic/double.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./basic/double.o: /home/matthew/xt/core/declarations.h
+./basic/double.o: /home/matthew/xt/core/message.h
+./basic/double.o: /home/matthew/xt/core/engine.h
+./basic/double.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./basic/double.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./basic/double.o: /usr/include/features.h /usr/include/stdc-predef.h
+./basic/double.o: /usr/include/netinet/in.h /usr/include/endian.h
+./basic/double.o: /usr/include/assert.h /usr/include/ctype.h
+./basic/double.o: /usr/include/dirent.h /usr/include/fcntl.h
+./basic/double.o: /usr/include/math.h /usr/include/pthread.h
+./basic/double.o: /usr/include/sched.h /usr/include/time.h
+./basic/double.o: /usr/include/signal.h /usr/include/stdio.h
+./basic/double.o: /usr/include/stdlib.h /usr/include/alloca.h
+./basic/double.o: /usr/include/string.h /usr/include/strings.h
+./basic/double.o: /usr/include/termios.h /usr/include/unistd.h
+./basic/long.o: /home/matthew/xt/core/basic/long.h
+./basic/long.o: /home/matthew/xt/core/iobject.h
+./basic/long.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./basic/long.o: /home/matthew/xt/core/declarations.h
+./basic/long.o: /home/matthew/xt/core/message.h
+./basic/long.o: /home/matthew/xt/core/engine.h /home/matthew/xt/core/tools.h
+./basic/long.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/standard.h
+./basic/long.o: /usr/include/arpa/inet.h /usr/include/features.h
+./basic/long.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./basic/long.o: /usr/include/endian.h /usr/include/assert.h
+./basic/long.o: /usr/include/ctype.h /usr/include/dirent.h
+./basic/long.o: /usr/include/fcntl.h /usr/include/math.h
+./basic/long.o: /usr/include/pthread.h /usr/include/sched.h
+./basic/long.o: /usr/include/time.h /usr/include/signal.h
+./basic/long.o: /usr/include/stdio.h /usr/include/stdlib.h
+./basic/long.o: /usr/include/alloca.h /usr/include/string.h
+./basic/long.o: /usr/include/strings.h /usr/include/termios.h
+./basic/long.o: /usr/include/unistd.h
+./basic/short.o: /home/matthew/xt/core/basic/short.h
+./basic/short.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./basic/short.o: /home/matthew/xt/core/declarations.h
+./basic/short.o: /home/matthew/xt/core/message.h
+./basic/short.o: /home/matthew/xt/core/engine.h /home/matthew/xt/core/tools.h
+./basic/short.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/standard.h
+./basic/short.o: /usr/include/arpa/inet.h /usr/include/features.h
+./basic/short.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./basic/short.o: /usr/include/endian.h /usr/include/assert.h
+./basic/short.o: /usr/include/ctype.h /usr/include/dirent.h
+./basic/short.o: /usr/include/fcntl.h /usr/include/math.h
+./basic/short.o: /usr/include/pthread.h /usr/include/sched.h
+./basic/short.o: /usr/include/time.h /usr/include/signal.h
+./basic/short.o: /usr/include/stdio.h /usr/include/stdlib.h
+./basic/short.o: /usr/include/alloca.h /usr/include/string.h
+./basic/short.o: /usr/include/strings.h /usr/include/termios.h
+./basic/short.o: /usr/include/unistd.h
+./buffer.o: /home/matthew/xt/core/buffer.h /home/matthew/xt/core/bool.h
+./buffer.o: /home/matthew/xt/core/declarations.h
+./buffer.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./buffer.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/standard.h
+./buffer.o: /usr/include/arpa/inet.h /usr/include/features.h
+./buffer.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./buffer.o: /usr/include/endian.h /usr/include/assert.h /usr/include/ctype.h
+./buffer.o: /usr/include/dirent.h /usr/include/fcntl.h /usr/include/math.h
+./buffer.o: /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h
+./buffer.o: /usr/include/signal.h /usr/include/stdio.h /usr/include/stdlib.h
+./buffer.o: /usr/include/alloca.h /usr/include/string.h
+./buffer.o: /usr/include/strings.h /usr/include/termios.h
+./buffer.o: /usr/include/unistd.h
+./tools.o: /home/matthew/xt/core/bool.h /home/matthew/xt/core/declarations.h
+./tools.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./tools.o: /usr/include/features.h /usr/include/stdc-predef.h
+./tools.o: /usr/include/netinet/in.h /usr/include/endian.h
+./tools.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./tools.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./tools.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./tools.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./tools.o: /usr/include/string.h /usr/include/strings.h
+./tools.o: /usr/include/termios.h /usr/include/unistd.h
+./tools.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./tools.o: /home/matthew/xt/core/object.h
+./objects.o: /home/matthew/xt/core/bool.h
+./objects.o: /home/matthew/xt/core/declarations.h
+./objects.o: /home/matthew/xt/core/objects.h /home/matthew/xt/core/iobject.h
+./objects.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/pair.h
+./objects.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./objects.o: /usr/include/features.h /usr/include/stdc-predef.h
+./objects.o: /usr/include/netinet/in.h /usr/include/endian.h
+./objects.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./objects.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./objects.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./objects.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./objects.o: /usr/include/string.h /usr/include/strings.h
+./objects.o: /usr/include/termios.h /usr/include/unistd.h
+./objects.o: /home/matthew/xt/core/string.h /home/matthew/xt/core/tools.h
+./objects.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/uuid.h
+./objects.o: /home/matthew/xt/core/message.h /home/matthew/xt/core/engine.h
+./objects.o: /home/matthew/xt/core/basic/long.h
+./objects.o: /home/matthew/xt/core/basic/unsigned_long.h
+./objects.o: /home/matthew/xt/core/basic/void.h
+./iobject.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./iobject.o: /usr/include/features.h /usr/include/stdc-predef.h
+./iobject.o: /usr/include/netinet/in.h /usr/include/endian.h
+./iobject.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./iobject.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./iobject.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./iobject.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./iobject.o: /usr/include/string.h /usr/include/strings.h
+./iobject.o: /usr/include/termios.h /usr/include/unistd.h
+./iobject.o: /home/matthew/xt/core/iobject.h /home/matthew/xt/core/object.h
+./iobject.o: /home/matthew/xt/core/bool.h
+./iobject.o: /home/matthew/xt/core/declarations.h
+./scratch.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./scratch.o: /usr/include/features.h /usr/include/stdc-predef.h
+./scratch.o: /usr/include/netinet/in.h /usr/include/endian.h
+./scratch.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./scratch.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./scratch.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./scratch.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./scratch.o: /usr/include/string.h /usr/include/strings.h
+./scratch.o: /usr/include/termios.h /usr/include/unistd.h
+./scratch.o: /home/matthew/xt/core/scratch.h
+./color.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./color.o: /usr/include/features.h /usr/include/stdc-predef.h
+./color.o: /usr/include/netinet/in.h /usr/include/endian.h
+./color.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./color.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./color.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./color.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./color.o: /usr/include/string.h /usr/include/strings.h
+./color.o: /usr/include/termios.h /usr/include/unistd.h
+./color.o: /home/matthew/xt/core/color.h
+./bit.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/object.h
+./bit.o: /home/matthew/xt/core/bool.h /home/matthew/xt/core/declarations.h
+./bit.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/standard.h
+./bit.o: /usr/include/arpa/inet.h /usr/include/features.h
+./bit.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./bit.o: /usr/include/endian.h /usr/include/assert.h /usr/include/ctype.h
+./bit.o: /usr/include/dirent.h /usr/include/fcntl.h /usr/include/math.h
+./bit.o: /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h
+./bit.o: /usr/include/signal.h /usr/include/stdio.h /usr/include/stdlib.h
+./bit.o: /usr/include/alloca.h /usr/include/string.h /usr/include/strings.h
+./bit.o: /usr/include/termios.h /usr/include/unistd.h
+./engine.o: /home/matthew/xt/core/engine.h
+./random.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./random.o: /usr/include/features.h /usr/include/stdc-predef.h
+./random.o: /usr/include/netinet/in.h /usr/include/endian.h
+./random.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./random.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./random.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./random.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./random.o: /usr/include/string.h /usr/include/strings.h
+./random.o: /usr/include/termios.h /usr/include/unistd.h
+./random.o: /home/matthew/xt/core/random.h
+./imessage.o: /home/matthew/xt/core/imessage.h /home/matthew/xt/core/engine.h
+./imessage.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./imessage.o: /home/matthew/xt/core/declarations.h
+./imessage.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./imessage.o: /usr/include/features.h /usr/include/stdc-predef.h
+./imessage.o: /usr/include/netinet/in.h /usr/include/endian.h
+./imessage.o: /usr/include/assert.h /usr/include/ctype.h
+./imessage.o: /usr/include/dirent.h /usr/include/fcntl.h /usr/include/math.h
+./imessage.o: /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h
+./imessage.o: /usr/include/signal.h /usr/include/stdio.h
+./imessage.o: /usr/include/stdlib.h /usr/include/alloca.h
+./imessage.o: /usr/include/string.h /usr/include/strings.h
+./imessage.o: /usr/include/termios.h /usr/include/unistd.h
+./pair.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./pair.o: /home/matthew/xt/core/declarations.h /home/matthew/xt/core/pair.h
+./pair.o: /home/matthew/xt/core/iobject.h /home/matthew/xt/core/tools.h
+./pair.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/standard.h
+./pair.o: /usr/include/arpa/inet.h /usr/include/features.h
+./pair.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./pair.o: /usr/include/endian.h /usr/include/assert.h /usr/include/ctype.h
+./pair.o: /usr/include/dirent.h /usr/include/fcntl.h /usr/include/math.h
+./pair.o: /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h
+./pair.o: /usr/include/signal.h /usr/include/stdio.h /usr/include/stdlib.h
+./pair.o: /usr/include/alloca.h /usr/include/string.h /usr/include/strings.h
+./pair.o: /usr/include/termios.h /usr/include/unistd.h
+./shard.o: /home/matthew/xt/core/shard.h /home/matthew/xt/core/object.h
+./shard.o: /home/matthew/xt/core/bool.h /home/matthew/xt/core/declarations.h
+./shard.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./shard.o: /usr/include/features.h /usr/include/stdc-predef.h
+./shard.o: /usr/include/netinet/in.h /usr/include/endian.h
+./shard.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./shard.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./shard.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./shard.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./shard.o: /usr/include/string.h /usr/include/strings.h
+./shard.o: /usr/include/termios.h /usr/include/unistd.h
+./uuid.o: /home/matthew/xt/core/bool.h /home/matthew/xt/core/declarations.h
+./uuid.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./uuid.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/standard.h
+./uuid.o: /usr/include/arpa/inet.h /usr/include/features.h
+./uuid.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./uuid.o: /usr/include/endian.h /usr/include/assert.h /usr/include/ctype.h
+./uuid.o: /usr/include/dirent.h /usr/include/fcntl.h /usr/include/math.h
+./uuid.o: /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h
+./uuid.o: /usr/include/signal.h /usr/include/stdio.h /usr/include/stdlib.h
+./uuid.o: /usr/include/alloca.h /usr/include/string.h /usr/include/strings.h
+./uuid.o: /usr/include/termios.h /usr/include/unistd.h
+./uuid.o: /home/matthew/xt/core/uuid.h /home/matthew/xt/core/message.h
+./uuid.o: /home/matthew/xt/core/engine.h /home/matthew/xt/core/iobject.h
+./message.o: /home/matthew/xt/core/engine.h /home/matthew/xt/core/message.h
+./message.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./message.o: /home/matthew/xt/core/declarations.h
+./message.o: /home/matthew/xt/core/string.h /home/matthew/xt/core/iobject.h
+./message.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./message.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./message.o: /usr/include/features.h /usr/include/stdc-predef.h
+./message.o: /usr/include/netinet/in.h /usr/include/endian.h
+./message.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./message.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./message.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./message.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./message.o: /usr/include/string.h /usr/include/strings.h
+./message.o: /usr/include/termios.h /usr/include/unistd.h
+./content.o: /home/matthew/xt/core/content.h
+./string.o: /home/matthew/xt/core/message.h /home/matthew/xt/core/engine.h
+./string.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./string.o: /home/matthew/xt/core/declarations.h
+./string.o: /home/matthew/xt/core/string.h /home/matthew/xt/core/iobject.h
+./string.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/bit.h
+./string.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./string.o: /usr/include/features.h /usr/include/stdc-predef.h
+./string.o: /usr/include/netinet/in.h /usr/include/endian.h
+./string.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./string.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./string.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./string.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./string.o: /usr/include/string.h /usr/include/strings.h
+./string.o: /usr/include/termios.h /usr/include/unistd.h
+./bitarray.o: /home/matthew/xt/core/bitarray.h /home/matthew/xt/core/bit.h
+./bitarray.o: /home/matthew/xt/core/object.h /home/matthew/xt/core/bool.h
+./bitarray.o: /home/matthew/xt/core/declarations.h
+./bitarray.o: /home/matthew/xt/core/message.h /home/matthew/xt/core/engine.h
+./bitarray.o: /home/matthew/xt/core/string.h /home/matthew/xt/core/iobject.h
+./bitarray.o: /home/matthew/xt/core/tools.h /home/matthew/xt/core/standard.h
+./bitarray.o: /usr/include/arpa/inet.h /usr/include/features.h
+./bitarray.o: /usr/include/stdc-predef.h /usr/include/netinet/in.h
+./bitarray.o: /usr/include/endian.h /usr/include/assert.h
+./bitarray.o: /usr/include/ctype.h /usr/include/dirent.h /usr/include/fcntl.h
+./bitarray.o: /usr/include/math.h /usr/include/pthread.h /usr/include/sched.h
+./bitarray.o: /usr/include/time.h /usr/include/signal.h /usr/include/stdio.h
+./bitarray.o: /usr/include/stdlib.h /usr/include/alloca.h
+./bitarray.o: /usr/include/string.h /usr/include/strings.h
+./bitarray.o: /usr/include/termios.h /usr/include/unistd.h
+./bitarray.o: /home/matthew/xt/core/bitarray.impl.expanded.c
+./bitarray.o: /home/matthew/xt/core/basic/long.h
+./bool.o: /home/matthew/xt/core/bool.h /home/matthew/xt/core/declarations.h
+./bool.o: /home/matthew/xt/core/message.h /home/matthew/xt/core/engine.h
+./bool.o: /home/matthew/xt/core/object.h
+./dayhour.o: /home/matthew/xt/core/dayhour.h /home/matthew/xt/core/tools.h
+./dayhour.o: /home/matthew/xt/core/bit.h /home/matthew/xt/core/object.h
+./dayhour.o: /home/matthew/xt/core/bool.h
+./dayhour.o: /home/matthew/xt/core/declarations.h
+./dayhour.o: /home/matthew/xt/core/standard.h /usr/include/arpa/inet.h
+./dayhour.o: /usr/include/features.h /usr/include/stdc-predef.h
+./dayhour.o: /usr/include/netinet/in.h /usr/include/endian.h
+./dayhour.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/dirent.h
+./dayhour.o: /usr/include/fcntl.h /usr/include/math.h /usr/include/pthread.h
+./dayhour.o: /usr/include/sched.h /usr/include/time.h /usr/include/signal.h
+./dayhour.o: /usr/include/stdio.h /usr/include/stdlib.h /usr/include/alloca.h
+./dayhour.o: /usr/include/string.h /usr/include/strings.h
+./dayhour.o: /usr/include/termios.h /usr/include/unistd.h

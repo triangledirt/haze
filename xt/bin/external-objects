@@ -1,0 +1,10 @@
+#!/bin/sh
+
+pwd=`pwd`
+if [ "$pwd" = "$XT" ]; then
+  external_objects=
+else
+  external_objects=`find $XT -name "*.o" | grep -v "$pwd"`
+fi
+
+echo $external_objects
