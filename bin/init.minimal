@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd
+ln -sf bin/gitconfig .gitconfig
+ln -sf bin/emacs .emacs
+ln -sf bin/screenrc .screenrc
