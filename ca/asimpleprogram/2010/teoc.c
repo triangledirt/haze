@@ -1,6 +1,9 @@
 /*  http://matthewtemple.wordpress.com/the-evolution-of-culture/             */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
 
 #define GENE_INDEX_DISPLAY 0
 #define GENE_INDEX_MEET 1
